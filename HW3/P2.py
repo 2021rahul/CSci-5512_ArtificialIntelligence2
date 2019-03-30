@@ -42,8 +42,13 @@ S = np.multiply(h, f)
 S = np.transpose(np.transpose(S))/np.transpose(sum(S))
 
 #%%
-plt.plot(f[0,:], "r")
-plt.plot(S[0,:], "b")
+fig, ax = plt.subplots()
+ax.plot(f[0,:], "r", label="Filtering Estimates")
+ax.plot(S[0,:], "b", label="Smoothed Estimates")
+legend = ax.legend(loc='upper right', shadow=True, fontsize='x-small')
+legend.get_frame().set_facecolor('w')
+plt.ylabel('P')
+plt.xlabel('t')
 plt.show()
 
 plt.plot(f[1,:], "r")
