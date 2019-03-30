@@ -9,6 +9,7 @@
 \usepackage{float}
 \usepackage{array,multirow}
 \usepackage{tikz}
+\usepackage{cancel}
 \usetikzlibrary{arrows}
 \pagenumbering{gobble}
 \begin{document}
@@ -18,235 +19,175 @@
 
 \section*{Question 1}
 \setcounter{equation}{0}
-According to normalization,
 \begin{align}
-    & P(a|b) = \alpha P(a,b)
+    P(d|\neg b) & = \alpha P(d,\neg b)\notag\\
+    & = \alpha \sum_{a}\sum_{c}\sum_{e}\sum_{f}P(a, \neg b, c, d, e, f)\notag\\
+    & = \alpha \sum_{a}\sum_{c}\sum_{e}\sum_{f}P(a)P(\neg b)P(c|a,\neg b)P(d|c)P(e|c)P(f|e, d)\notag\\
+    & = \alpha P(\neg b)\sum_{c}P(d|c)\sum_{a}P(a)P(c|a,\neg b) \sum_{e}\cancelto{1}{P(e|c)}\ \ \sum_{f}\cancelto{1}{P(f|e, d)}\notag\\
+    & = \alpha P(\neg b)\sum_{c}P(d|c)\sum_{a}P(a)P(c|a,\neg b)\notag\\
+    & = \alpha f_1()\sum_{c}f_2(C)\sum_{a}f_3(A)f_4(A,C)\notag
 \end{align}
-We know that,
+where, $f_1()=P(\neg b),\ f_2(C)=P(d|c),\ f_3(A)= P(a),\ f_4(A,C)=P(c|a,\neg b)\\
+f_{34}(a,c) = P(a)\times P(c|a,\neg b) = 0.5\times0.7 = 0.35\\
+f_{34}(a,\neg c) = P(a)\times P(\neg c|a,\neg b) = 0.5\times0.3 = 0.15\\
+f_{34}(\neg a,c) = P(\neg a)\times P(c|\neg a,\neg b) = 0.5\times0.2 = 0.1\\
+f_{34}(\neg a,\neg c) = P(\neg a)\times P(\neg c|\neg a,\neg b) = 0.5\times0.8 = 0.4$
 \begin{align}
-    & P(a|b) + P(\neg a|b) = 1\notag\\
-    & \alpha P(a,b) + \alpha P(\neg a,b) = 1 \qquad from (1)\notag\\
-    & \alpha P(b) = 1\notag\\
-    & P(b) = \frac{1}{\alpha}
+    & = \alpha f_1()\sum_{c}f_2(C)\sum_{a}f_3(A)f_4(A,C)\notag\\
+    & = \alpha f_1()\sum_{c}f_2(C)\sum_{a}f_{34}(A,C)\notag
 \end{align}
-Now,
+$
+f_{34a}(c) = f_{34}(a,c) + f_{34}(\neg a,c) = 0.35 + 0.1 = 0.45\\
+f_{34a}(\neg c) = f_{34}(a,\neg c) + f_{34}(\neg a,\neg c) = 0.15 + 0.4 = 0.55
+$
 \begin{align}
-    & P(a|b)=\alpha P(a,b)\notag\\
-    \implies & P(a|b)=\alpha P(b|a)P(a)\notag\\
-    \implies & P(a|b) = \frac{P(b|a)P(a)}{P(b)} \qquad from (2)
+    & = \alpha f_1()\sum_{c}f_2(C)f_{34a}(C)\notag
 \end{align}
-But equation(3) is also the Bayes Theorem. Therefore instead of dividing by $P(b)$, we can also find $P(\neg a|b)$ and normalize
+$
+f_{234a}(c) = f_2(c)\times f_{34a}(c) = P(d|c)\times f_{34a}(c) = 0.3\times 0.45 = 0.135\\
+f_{234a}(\neg c) = f_2(\neg c)\times f_{34a}(\neg c) = P(d|\neg c)\times f_{34a}(\neg c) = 0.6\times 0.55 = 0.33
+$
+\begin{align}
+    & = \alpha f_1()\sum_{c}f_{234a}(C)\notag
+\end{align}
+$
+f_{234ac}() = f_{234a}(c) + f_{234a}(\neg c) = 0.135 + 0.33 = 0.465
+$
+\begin{align}
+    & = \alpha f_1()f_{234ac}()\notag\\
+    & = \alpha (0.3)(0.465)\notag\\
+    P(d|\neg b) & = \alpha0.1395\notag
+\end{align}
+Similarly,
+\begin{align}
+    & P(\neg d|\neg b) = \alpha0.1605\notag\\
+    \implies & P(d|\neg b) = 0.465\notag
+\end{align}
 
 \section*{Question 2}
 \setcounter{equation}{0}
-\begin{itemize}
-    \item[(1)] $0 \leq P(\omega) \leq 1$
-    \item[(2)] $\sum_{\omega \epsilon \Omega} P(\omega)=1$
-    \item[(3)] $P(a) + P(\neg a) = 1$
-    \item[(4)] $P(a\ or\ b) = P(a) + P(b) - P(a,b)$
-    \item[(5)] $P(a) = \sum_{b} P(a,b)$
-\end{itemize}
-Given: P(a) = 0.2, P(b) = 0.3, P(a or b)=0.1\\
-Proof: Using (4) we get, 
-\begin{align}
-    P(a,b) = 0.4\notag
-\end{align}
-From (1), we know that $P(\omega)$ is a non-negative number.\\
-Therefore, from (5)
-\begin{align}
-    P(a) \geq P(a,b) \And P(b) \geq P(a,b) \notag
-\end{align}
-But from the values we get that,
-\begin{align}
-    P(a) < 0.4 \And P(b) < 0.4\notag
-\end{align}
-Thus the probabilities are not consistent with each other.
+\begin{align*}
+    & P\left((1-\epsilon)\mu \leq LikelihoodEstimate \leq (1+\epsilon)\mu)\right) > 1-\delta\\
+    & N \geq \frac{4}{\mu\epsilon^2}\ln{\frac{2}{\delta}}
+\end{align*}
+Now, $\delta = 0.05\ \&\ \epsilon = 0.01$\\
+Moreover, $(1+\epsilon)\mu \leq 1 \implies \mu \leq 0.9901$\\
+Therefore,
+\begin{align*}
+    N & \geq \frac{4}{0.9901\times0.0001}\ln{\frac{2}{0.05}}\\
+    & \geq 149030
+\end{align*}
 
 \section*{Question 3}
 \setcounter{equation}{0}
-\begin{itemize}
-    \item[(1)] P(a,b)
-        \begin{flalign*}
-            P(a,b) &= \sum_{c} P(a,b,c)&\\
-                    &= P(a,b,c) + P(a,b,\neg c)&\\
-                    &= 0.018837 + 0.011063&\\
-                    &= 0.0299
-        \end{flalign*}
-    \item[(2)] P(a,b$|$c)
-        \begin{flalign*}
-            P(c) &= \sum_{a,b} P(a,b,c)&\\
-                &= P(a,b,c)+P(\neg a,b,c)+P(a,\neg b,c)+P(\neg a,\neg b, c)&\\
-                &= 0.018837+0.126324+0.063063+0.160776&\\
-                &=0.369&\\
-            P(a,b|c) &= \frac{P(a,b,c)}{P(c)}&\\
-                    &= \frac{0.018837}{0.369}&\\
-                    &= 0.051
-        \end{flalign*}
-    \item[(3)] P(c$|\neg$a)
-        \begin{flalign*}
-            P(\neg a,c) &= \sum_{b} P(\neg a,b,c)&\\
-                &= P(\neg a,b,c)+P(\neg a,\neg b,c)&\\
-                &= 0.126324 + 0.160776&\\
-                &=0.2871&\\
-            P(\neg a) &= \sum_{b,c} P(\neg a,b,c)&\\
-                    &= 0.8700&\\
-            P(c|\neg a) &= \frac{P(\neg a,c)}{P(\neg a)}&\\
-                        &= 0.22871/0.87&\\
-                        &=0.330
-        \end{flalign*}
-    \item[(4)] P(b)
-        \begin{flalign*}
-            P(b) &= P(a,b,c)+P(\neg a,b,c)+P(a,b,\neg c)+P(\neg a,b,\neg c)&\\
-                &= 0.018837+0.126324+0.011063+0.256476&\\
-                &= 0.4127
-        \end{flalign*}
-\end{itemize}
+$P(g|k, \neg b, c)$ = 0.2628
 
 \section*{Question 4}
 \setcounter{equation}{0}
-\begin{flalign}
-    &P(a)\times P(b) = 0.1300 \times 0.4127 = 0.0537&\\
-    &P(a,b) = 0.0299&\\
-    &P(a)\times P(c) = 0.1300 \times 0.3690 = 0.0480&\\
-    &P(a,c) = 0.0819&\\
-    &P(b)\times P(c) = 0.4127 \times 0.3690 = 0.1523&\\
-    &P(b,c) = 0.1452
-\end{flalign}
-Since $(1)\neq(2), (3)\neq(4) \And (5)\neq(6)$, none of the variables are independent.
-\begin{flalign}
-    &P(a|c)\times P(b|c) = 0.2220 \times 0.3934 = 0.0873&\\
-    &P(a,b|c) = 0.0510&\\
-    &P(a|b)\times P(c|b) = 0.0724 \times 0.3517 = 0.0255&\\
-    &P(a,c|b) = 0.0456&\\
-    &P(b|a)\times P(c|a) = 0.2300 \times 0.6300 = 0.1449&\\
-    &P(b,c|a) = 0.1449
-\end{flalign}
-Since $(11)=(12)$, b and c are conditionally independent.
+$P(g|k, \neg b, c)$ = 0.256
 
 \section*{Question 5}
 \setcounter{equation}{0}
 \begin{itemize}
-    \item[(1)] Let the variable order be A, B and C.\\
-    \begin{itemize}
-        \item[-] First loop iteration, we need to find, P(A$|$Parent(A)). But since i=1, no parents needed to be found.
-                \begin{equation*}
-                    P(A|nothing) = P(A)
-                \end{equation*}
-        \item[-] Next loop iteration, We find P(B$|$Parent(B)) for which we have two options,
-                \begin{equation*}
-                    P(B|A) = \begin{cases}
-                                P(B|A)\\
-                                P(B)
-                            \end{cases}
-                \end{equation*}
-                But since B and A are not independent, the second options is not possible. So Parent(B)=A
-        \item[-] Last iteration we find, P(C$|$Parent(C)),
-                \begin{equation*}
-                    P(C|Parent(C)) = P(C|B,A) 
-                \end{equation*}
-                but since C and B are conditionally independent,
-                \begin{equation*}
-                    \implies P(C|Parent(C)) = P(C|B,A) = P(C|A)
-                \end{equation*}
-                So Parent(C)=A
-    \end{itemize}
-    So depending on this network we have,\\
-    \begin{tabular}{ |c|c|c| } 
-        \hline
-        \multirow{2}{*}{P(a)=0.1300} & P(b$|$a) = 0.2300 & P(c$|$a) = 0.6300 \\\cline{2-3}
-        & P(b$|\neg$a) = 0.4400 & P(c$|\neg$a) = 0.3300 \\\cline{3-3}
-        \hline
-    \end{tabular}
-    \begin{tikzpicture}[baseline={(current bounding box.east)},->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-        \node[main node] (1) {A};
-        \node[main node] (2) [below left of=1] {B};
-        \node[main node] (3) [below right of=1] {C};
-        
-        \path[every node/.style={font=\sffamily\small}]
-        (1) edge node {} (3)
-            edge node {} (2);
-    \end{tikzpicture}
-    
-    \item[(2)] Let the variable order be C, B and A.\\
-    \begin{itemize}
-        \item[-] First loop iteration, we need to find, P(C$|$Parent(C)). But since i=1, no parents needed to be found.
-                \begin{equation*}
-                    P(C|nothing) = P(C)
-                \end{equation*}
-        \item[-] Next loop iteration, We find P(B$|$Parent(B)) for which we have two options,
-                \begin{equation*}
-                    P(B|C) = \begin{cases}
-                                P(B|C)\\
-                                P(B)
-                            \end{cases}
-                \end{equation*}
-                But since B and C are not independent, the second options is not possible. So Parent(B)=C
-        \item[-] Last iteration we find, P(A$|$Parent(A)),
-                \begin{equation*}
-                    P(A|Parent(A)) = P(A|B,C) 
-                \end{equation*}
-    \end{itemize}
-    So depending on this network we have,\\
-    \begin{tabular}{ |c|c|c| } 
-        \hline
-        \multirow{4}{*}{P(c)=0.3690} & \multirow{2}{*}{P(b$|$c) = 0.3934} & P(a$|$b,c) = 0.1298 \\\cline{3-3}
-        & & P(a$|\neg$b,c) = 0.2817 \\ \cline{2-3}
-        & \multirow{2}{*}{P(b$|\neg$c) = 0.4240} & P(a$|$b,$\neg$c)=0.0414 \\\cline{3-3}
-        & & P(a$|\neg$b,$\neg$c)=0.1019 \\
-        \hline
-    \end{tabular}
-    \begin{tikzpicture}[baseline={(current bounding box.east)},->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-        \node[main node] (C) {C};
-        \node[main node] (B) [below left of=C] {B};
-        \node[main node] (A) [below right of=C] {A};
-        
-        \path[every node/.style={font=\sffamily\small}]
-        (C) edge node {} (B)
-            edge node {} (A)
-        (B) edge node {} (A);
-    \end{tikzpicture}
-    
+    \item[(5.1)] MarkovBlanket(G) = \{C, D, E, I, J\}
+    \item[(5.2)] \begin{flalign*}
+                    P(g|MarkovBlanket(G)) & = \alpha P(g|Parent(G))\prod_{y\in Children(G)} P(y|Parent(Y))\\
+                    & = \alpha P(g|c,d,e)P(i|f,g)P(j|g,h)\\
+                    & = \alpha (0.1)(0.8)(0.2)\\
+                    & = \alpha 0.016\\ 
+                    P(\neg g|MarkovBlanket(G)) & = \alpha P(\neg g|Parent(G))\prod_{y\in Children(G)} P(y|Parent(Y))\\
+                    & = \alpha P(\neg g|c,d,e)P(i|f,\neg g)P(j|\neg g,h)\\
+                    & = \alpha (0.9)(0.6)(0.9)\\
+                    & = \alpha 0.486\\
+                    \implies P(g|MarkovBlanket(G)) & = \frac{0.016}{0.016+0.486} = 0.0319
+                 \end{flalign*}
+    \item[(5.3)]We use Gibbs sampling to find $P(g|c,d,e,f)$ and the value obtained (0.1066) is very close to 0.1 i.e. $P(g|c,d,e)$.\\
+                \begin{flalign*}
+                    P(g|c,d,e,f) = & \alpha P(c,d,e,f,g)\\
+                    = & \alpha \sum_{a}\sum_{b}\sum_{h}\sum_{i}\sum_{j}\sum_{k}P(a)P(b)P(c|a)P(d|a)P(e|b)P(f)P(g|c,d,e)P(h|e)P(i|f,g)\\&P(j|g,h)P(k|i)\\
+                    = & \alpha P(f)P(g|c,d,e)\sum_{a}P(a)P(c|a)P(d|a)\sum_{b}P(b)P(e|b)\\
+                    = & \alpha P(f)P(g|c,d,e)((0.3)(0.2)(0.8)+(0.7)(0.5)(0.4))((0.6)(0.8)+(0.4)(0.1))\\
+                    = & \alpha P(f)P(g|c,d,e)0.09776\\
+                    = & \alpha' P(g|c,d,e)\\
+                    = P(g|c,d,e)
+                \end{flalign*}
+                $\implies$ g and f are conditionally independent.
+    \item[(5.4)] Again we use Gibbs sampling to find $P(g|f)$ and $P(g)$. The values obtained (0.5122 and 0.4975 respectively) are almost similar.
+                \begin{flalign*}
+                    P(g) = & \sum_{a}\sum_{b}\sum_{c}\sum_{d}\sum_{e}\sum_{f}\sum_{h}\sum_{i}\sum_{j}\sum_{k}P(a,b,c,d,e,f,g,h,i,j,k)\\
+                    = & \sum_{a}\sum_{b}\sum_{c}\sum_{d}\sum_{e}\sum_{f}\sum_{h}\sum_{i}\sum_{j}\sum_{k}P(a)P(b)P(c|a)P(d|a)P(e|b)P(f)P(g|c,d,e)P(h|e)P(i|f,g)\\&P(j|g,h)P(k|i)\\
+                    = & \sum_{a}P(a)\sum_{c}P(c|a)\sum_{d}P(d|a)\sum_{b}P(b)\sum_{e}P(e|b)P(g|c,d,e)\sum_{f}\cancelto{1}{P(f)}\sum_{h}\cancelto{1}{P(h|e)}\sum_{j}\cancelto{1}{P(j|g,h)}\\&\sum_{i}\cancelto{1}{P(i|f,g)}\sum_{k}\cancelto{1}{P(k|i)}\\
+                    P(g|f) = & \alpha \sum_{a}\sum_{b}\sum_{c}\sum_{d}\sum_{e}\sum_{h}\sum_{i}\sum_{j}\sum_{k}P(a,b,c,d,e,f,g,h,i,j,k)\\
+                    = & \alpha \sum_{a}\sum_{b}\sum_{c}\sum_{d}\sum_{e}\sum_{h}\sum_{i}\sum_{j}\sum_{k}P(a)P(b)P(c|a)P(d|a)P(e|b)P(f)P(g|c,d,e)P(h|e)P(i|f,g)\\&P(j|g,h)P(k|i)\\
+                    = & \alpha P(f) \sum_{a}P(a)\sum_{c}P(c|a)\sum_{d}P(d|a)\sum_{b}P(b)\sum_{e}P(e|b)P(g|c,d,e)\sum_{h}\cancelto{1}{P(h|e)}\sum_{j}\cancelto{1}{P(j|g,h)}\\&\sum_{i}\cancelto{1}{P(i|f,g)}\sum_{k}\cancelto{1}{P(k|i)}\\
+                    = & \alpha P(f)P(g)\\
+                    P(\neg g|f) = & \alpha P(f)P(\neg g) \implies P(g|f) = P(g) 
+                \end{flalign*}
+                $\implies$ g and f are independent.
+    \item[(5.5)]\begin{flalign*}
+                    P(a|c,d,e) = & \alpha \sum_{b}P(a)P(b)P(c|a)P(d|a)P(e|b)\\
+                    = & \alpha P(a)P(c|a)P(d|a)\sum_{b}P(b)P(e|b)\\
+                    P(g,a|c,d,e) = & \alpha \sum_{b}P(a)P(b)P(c|a)P(d|a)P(e|b)P(g|c,d,e)\\
+                    = & \alpha P(a)P(c|a)P(d|a)P(g|c,d,e)\sum_{b}P(b)P(e|b)\\
+                    = & P(g|c,d,e)P(a|c,d,e)
+                \end{flalign*}
+                $\implies$ A and G are conditionally independent given C,D and E.
+    \item[(5.6)]J and G are not conditionally independent.
 \end{itemize}
+
 \section*{Question 6}
 \setcounter{equation}{0}
-\begin{itemize}
-    \item[(1)] let the "slot reward" be the random variable. According to the given information,
-    \begin{flalign*}
-        &P(slot\_reward = 100) = 0.1&\\
-        &P(slot\_reward = 30) = 0.3&\\
-        &P(slot\_reward = 5) = 0.5&\\
-        &P(slot\_reward = 0) = 0.1
-    \end{flalign*}
-    \item[(2)] Using the above probabilities the expected reward from the slot machine is,
-    \begin{align*}
-        E[reward] &= \sum reward*P(reward)&\\
-        &= (100*0.1)+(30*0.3)+(5*0.5)+(0*0.1)&\\
-        &= 10+9+2.5&\\
-        &= 21.5
-    \end{align*}
-    Therefore the Casino should attach \$21.5 to play at this machine.
-    \item[(3)]
-    \begin{align*}
-        P(atleast\ 1\ reward) &= 1-P(no\ reward)&\\
-        &= 1-(0.1)^5&\\
-        &= 1-0.00001&\\
-        &= 0.99999
-    \end{align*}
-\end{itemize}
-
-\section*{Question 7}
-\setcounter{equation}{0}
+Let Z = A+B = $A\cup B$,
 \begin{flalign*}
-    E[reward] = &\sum reward*P(reward)&\\
-    = &(100+0)(0.1)(0.5) + (100+5)(0.1)(0.5)+&\\
-    &(30+0)(0.3)(0.1)+(30+5)(0.3)(0.5)+(30+30)(0.3)(0.3)+(30+100)(0.3)(0.1)+&\\
-    &(5+0)(0.5)(0.1)+(5+5)(0.5)(0.5)+(5+30)(0.5)(0.3)+(5+100)(0.5)(0.1)+&\\
-    &(0+0)(0.1)(0.1)+(0+5)(0.1)(0.5)+(0+30)(0.1)(0.3)+(0+100)(0.1)(0.1)&\\
-    =&5 + 5.25 + 0.9 + 5.25 + 5.4 + 3.9 + 0.25 + 2.5 + 5.25 + 5.25 + 0 + 0.25 + 0.9 + 1&\\
-    = &41.1
-    \end{flalign*}
+    & P(b) = \sum_a P(a,b) = \sum_a P(b|a)P(a) = P(b|a)P(a) + P(b|\neg a)P(\neg a) = 1(0.3) + (0.5)(0.7) = 0.65\\
+    & P(z) = P(a) + P(b) - P(a, b) = P(a) + \cancel{P(b|a)P(a)} + P(b|\neg a)P(\neg a) - \cancel{P(b|a)P(a)} = 0.3 + (0.5)(0.7) = 0.65\\
+    & P(a|z) = \frac{P(a,b)+P(a,\neg b)}{P(z)} = \frac{P(b|a)P(a)+P(\neg b|a)P(a)}{P(z)} = \frac{(1)(0.3)+(0)(0.3)}{0.65} = \frac{0.3}{0.65} = 0.4615\\
+    & P(a|\neg z) = P(b|\neg z) = 0\\
+    & P(b|z) = \frac{P(a,b)+P(\neg a,b)}{P(z)} = \frac{P(b|a)P(a)+P(b|\neg a)P(\neg a)}{P(z)} = \frac{(1)(0.3)+(0.5)(0.7)}{0.65} = \frac{0.65}{0.65} = 1\\
+    & P(c|z) = \frac{P(c, z)}{P(z)} = \frac{P(c,a,b)+P(c,\neg a,b)+P(c,a,\neg b)}{P(z)} = \frac{(0.3)(1)(0.4)+(0.7)(0.5)(0.9)+(0.3)(0)(0.4)}{0.65} = 0.67\\
+    & P(c|\neg z) = \frac{P(c,\neg z)}{P(\neg z)} = \frac{P(c,\neg a,\neg b)}{P(\neg z)} = \frac{(0.7)(0.5)(0.9)}{(0.5)(0.7)}=0.9\\
+    & P(d|z,c) = \frac{P(d,z,c)}{P(z,c)} = \frac{P(a,b,c,d)+P(a,\neg b,c,d)+P(\neg a,b,c,d)}{P(a,b,c)+P(a,\neg b,c)+P(\neg a,b,c)}\\
+    & = \frac{(0.3)(1)(0.4)(0.4)+(0.3)(0)(0.4)(0.3)+(0.7)(0.5)(0.9)(0.4)}{(0.3)(1)(0.4)+(0.3)(0)(0.4)+(0.7)(0.5)(0.9)}=\frac{0.174}{0.435}=0.4\\
+    & P(d|z,\neg c) = \frac{P(d,z,\neg c)}{P(z,\neg c)} = \frac{P(a,b,\neg c,d)+P(a,\neg b,\neg c,d)+P(\neg a,b,\neg c,d)}{P(a,b,\neg c)+P(a,\neg b,\neg c)+P(\neg a,b,\neg c)}\\
+    & = \frac{(0.3)(1)(0.6)(0.9)+(0.3)(0)(0.6)(0.5)+(0.7)(0.5)(0.1)(0.9)}{(0.3)(1)(0.6)+(0.3)(0)(0.6)+(0.7)(0.5)(0.1)}=\frac{0.1935}{0.215} = 0.9\\
+    & P(d|\neg z,c) = \frac{P(d,\neg z,c)}{P(\neg z,c)} = \frac{P(\neg a,\neg b,c,d)}{P(\neg a,\neg b,c)} = \frac{(0.7)(0.5)(0.9)(0.3)}{(0.7)(0.5)(0.9)}=0.3\\
+    & P(d|\neg z,\neg c) = \frac{P(d,\neg z,\neg c)}{P(\neg z,\neg c)} = \frac{P(\neg a,\neg b,\neg c,d)}{P(\neg a,\neg b,\neg c)} = \frac{(0.7)(0.5)(0.1)(0.5)}{(0.7)(0.5)(0.1)}=0.5\\
+\end{flalign*}
+Given Z, we have the probabilities $P(A|Z)$ and $P(B|Z)$ to get the values of A and B.
 
+% \begin{tabular}{ |c|c|c| } 
+%     \hline
+%     A & B & P(Z=A+B)\\
+%     \hline
+%     T & T & 0.3\\
+%     T & F & 0\\
+%     F & T & 0.35\\
+%     F & F & 0.35\\
+%     \hline
+% \end{tabular}
+% \begin{tabular}{ |c|c| } 
+%     \hline
+%     Z & P(C)\\
+%     \hline
+%     T \& T & 0.4\\
+%     T \& F & 0.4\\
+%     F \& T & 0.9\\
+%     F \& F & 0.9\\
+%     \hline
+% \end{tabular}
 
+% \begin{tabular}{ |c|c|c| } 
+%     \hline
+%     Z & C & P(D)\\
+%     \hline
+%     T \& T & T & 0.4\\
+%     T \& T & F & 0.9\\
+%     T \& F & T & 0.3\\
+%     T \& F & F & 0.5\\
+%     F \& T & T & 0.4\\
+%     F \& T & F & 0.9\\
+%     F \& F & T & 0.3\\
+%     F \& F & F & 0.5\\
+%     \hline
+% \end{tabular}
 \end{document}
