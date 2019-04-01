@@ -21,8 +21,12 @@ for sigma_xsq in list_sigma_xsq:
         sigma_tsq = sigma_t1sq
     list_sigma_tsq.append(sigma_tsq)
 #%%
-plt.plot(list_sigma_xsq, list_sigma_tsq)
+fig = plt.figure()
+fig.set_size_inches(20, 10)
+ax = plt.gca()
+ax.set_xticks(np.arange(0, 100, 1))
+ax.set_xticklabels(np.arange(0, 100, 1), rotation='vertical')
 plt.ylabel('sigma_10')
 plt.xlabel('sigma_x')
-plt.xticks(np.arange(0, 100, step=1))
-plt.title("Variance at 10 throw vs Accuracy")
+plt.plot(list_sigma_xsq, list_sigma_tsq)
+plt.title("Variance after 10 throws vs Accuracy")
