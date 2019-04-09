@@ -261,7 +261,7 @@ The code to find the Maximum Likelihood Estimate is as follows:
     33 & 26 & 20 & 72 & 81 & 31 & 27 & 20 & 22 & 86 & 45
     \end{bmatrix}
 \end{equation*}
-Therefore, $P(x_{10}|\neg e_1, \neg e_2, e_3, e_4, \neg e_5, \neg e_6, \neg e_7, \neg e_8, e_9) = \begin{bmatrix}0\\0.51\\0.49\end{bmatrix}$
+Therefore, $P(x_{10}|\neg e_1, \neg e_2, e_3, e_4, \neg e_5, \neg e_6, \neg e_7, \neg e_8, e_9) = \begin{bmatrix}0.4\\0.51\\0.45\end{bmatrix}$
 The code for particle filtering is as follows:
 \begin{lstlisting}[language=Python]
     import numpy as np
@@ -342,7 +342,7 @@ P(x_1|z_1=0) & = \alpha \frac{1}{\sqrt{2\pi\frac{1}{2}}}e^{-\frac{x_1^2}{2\times
 P(x_1|z_1=0) & = \frac{1}{\sqrt{2\pi\frac{1}{2}}}e^{-\frac{x_1^2}{2\times\frac{1}{2}}}\\
 P(x_1|z_1=0) & = \mathcal{N}(0,\frac{1}{2})(x_1)
 \end{align*}
-Therefore, $\mu_1=0\ and\ \sigma_1^2 = \frac{1}{2}$. The plot of $P(x_1|z_1=0)$ is shown in Figure 1.
+Therefore, $\mu_1=0\ and\ \sigma_1^2 = \frac{1}{2}$. The plot of $P(x_1|z_1=0)$ is shown in Figure 2.
 \begin{align*}
     P(x_2|z_1=0, z_2=0) & =\alpha P(z_2|x_2)\int_{-\infty}^{\infty}P(x_1|x_0)P(x_1|z_1=0)dx_1\\
     & = \alpha \mathcal{N}(0,\frac{1}{2})\int_{-\infty}^{\infty}\mathcal{N}(0,1)\mathcal{N}(0,\frac{1}{2})dx_1
@@ -353,8 +353,25 @@ All are gaussian distribution. Therefore now we can use the result derived in cl
 \end{equation*}
 where, $\sigma_t^2=\frac{1}{2},\ \sigma_z^2=\frac{1}{2},\ \sigma_x^2=1, z_2=0\ and\ \mu_t=0$\\
 By substituting the values we get, $\mu_2=0,\ \sigma_2^2 = \frac{(\frac{1}{2}+1)\frac{1}{2}}{\frac{1}{2}+1+\frac{1}{2}} = \frac{3}{8}$
-Therefore, $\mu_2=0\ and\ \sigma_2^2 = \frac{3}{8}$. The plot of $P(x_2|z_1=0, z_2=0)$ is shown in Figure 2.
+Therefore, $\mu_2=0\ and\ \sigma_2^2 = \frac{3}{8}$. The plot of $P(x_2|z_1=0, z_2=0)$ is shown in Figure 3.
 
-As $t\rightarrow\infty$, the variance tends towards 0.36 as can be seen from the graph in figure 3.
+As $t\rightarrow\infty$, the variance tends towards 0.36 as can be seen from the graph in figure 4.
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=\textwidth, height=0.4\textwidth]{HW3/t1.png}
+    \caption{Distribution of $P(x_1|z_1=0)$}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=\textwidth, height=0.4\textwidth]{HW3/t=2.png}
+    \caption{Distribution of $P(x_2|z_1=0, z_2=0)$}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=\textwidth, height=0.4\textwidth]{HW3/variance_time.png}
+    \caption{$\sigma_t^2\ vs\ time\ t$}
+\end{figure}
 
 \end{document}
