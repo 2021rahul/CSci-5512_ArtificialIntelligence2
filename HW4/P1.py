@@ -23,4 +23,5 @@ sigma = math.sqrt(variance)
 x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
 plt.plot(x, stats.norm.pdf(x, mu, sigma), "b", label="Job B")
 
+legend = plt.legend(loc='upper right', shadow=True, fontsize='x-small')
 plt.savefig("P1.png")
