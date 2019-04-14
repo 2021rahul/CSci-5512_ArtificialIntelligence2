@@ -10,6 +10,12 @@ Created on Mon Apr  8 10:54:39 2019
 import copy
 import numpy as np
 
+ACTIONS = []
+ACTIONS.append([-1, 0])
+ACTIONS.append([1, 0])
+ACTIONS.append([0, -1])
+ACTIONS.append([0, 1])
+
 rows = 4
 columns = 3
 reward = [[None, 50, None], [None, 0, -3], [-50, -1, -10], [None, -3, -2]]
@@ -30,40 +36,7 @@ index_list = [[0,1], [1,1], [1,2], [2,0], [2,1], [2,2], [3,1], [3,2]]
 #gamma = 1
 #index_list = [[0,1], [1,1], [1,2], [1,3], [2,0], [2,1], [2,3], [3,1], [3,2], [3,3]]
 #%%
-iter = 0
-count = len(index_list)
-while count != 0:
-    A = np.zeros(len(index_list))
-    B = []
-    for index in index_list:
-        a, b = get_equation(index[0], index[1])
-        A = np.vstack((A, np.reshape(a, (1,-1))))
-        B.append(b)
-    A = A[1:,:]
-    x = np.linalg.solve(A, B)
 
-    for i, index in enumerate(index_list):
-        if index not in terminal_states:
-            state[index[0]][index[1]] = x[i]
-    
-    new_policy = copy.deepcopy(policy)
-    count=0
-    for i, index in enumerate(index_list):
-        if index not in terminal_states:
-            new_policy[index[0]][index[1]] = ACTIONS[get_best_action(index[0], index[1])]
-            if new_policy[index[0]][index[1]][0] is not policy[index[0]][index[1]][0] or new_policy[index[0]][index[1]][1] is not policy[index[0]][index[1]][1]:
-                print(new_policy[index[0]][index[1]], policy[index[0]][index[1]])
-                count += 1
-    policy = copy.deepcopy(new_policy)
-    iter += 1
-    print(iter, count)
-
-#%%
-ACTIONS = []
-ACTIONS.append([-1, 0])
-ACTIONS.append([1, 0])
-ACTIONS.append([0, -1])
-ACTIONS.append([0, 1])
 
 def action_list(action):
     if not action[1]:
@@ -108,3 +81,50 @@ def get_best_action(i,j):
     value_left = apply_action(ACTIONS[2], i, j)
     value_right = apply_action(ACTIONS[3], i, j)
     return np.argmax([value_up, value_down, value_left, value_right])
+#%%
+state_all = []
+policy_all = []
+iter = 0
+count = len(index_list)
+while count != 0:
+    policy_all.append(copy.deepcopy(policy))
+    A = np.zeros(len(index_list))
+    B = []
+    for index in index_list:
+        a, b = get_equation(index[0], index[1])
+        A = np.vstack((A, np.reshape(a, (1,-1))))
+        B.append(b)
+    A = A[1:,:]
+    x = np.linalg.solve(A, B)
+
+    for i, index in enumerate(index_list):
+        if index not in terminal_states:
+            state[index[0]][index[1]] = x[i]
+    
+    state_all.append(copy.deepcopy(state))
+    new_policy = copy.deepcopy(policy)
+    count=0
+    for i, index in enumerate(index_list):
+        if index not in terminal_states:
+            new_policy[index[0]][index[1]] = ACTIONS[get_best_action(index[0], index[1])]
+            if new_policy[index[0]][index[1]][0] is not policy[index[0]][index[1]][0] or new_policy[index[0]][index[1]][1] is not policy[index[0]][index[1]][1]:
+                print(new_policy[index[0]][index[1]], policy[index[0]][index[1]])
+                count += 1
+    policy = copy.deepcopy(new_policy)
+    iter += 1
+    print(iter, count)
+
+##%%
+#policy = [[None, 50, None], [None, ACTIONS[0], ACTIONS[2]], [-50, ACTIONS[0], ACTIONS[2]], [None, ACTIONS[0], ACTIONS[2]]]
+#A = np.zeros(len(index_list))
+#B = []
+#for index in index_list:
+#    a, b = get_equation(index[0], index[1])
+#    A = np.vstack((A, np.reshape(a, (1,-1))))
+#    B.append(b)
+#A = A[1:,:]
+#x = np.linalg.solve(A, B)
+#for i, index in enumerate(index_list):
+#    if index not in terminal_states:
+#        state[index[0]][index[1]] = x[i]
+

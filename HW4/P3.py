@@ -153,6 +153,7 @@ for i in range(len(state1)):
 plt.figure(figsize=(10,10))
 plt.yticks(np.arange(0, 40, step=1))
 plt.xticks(np.arange(0, 4, step=1))
+plt.grid()
 plt.plot(0.8*np.array(difference[1:]), "b", label="0.8*|U1-U1'|")
 plt.plot(np.array(difference[:-1]), "r", label="|U0-U0'|")
 legend = plt.legend(loc='upper right', shadow=True, fontsize='x-small')
