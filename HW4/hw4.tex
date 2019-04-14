@@ -36,7 +36,7 @@
     
     \item[(2)] For Job Y to stochastically dominate Job X, $\mu_x<\mu_y$ and $\sigma^2_x<\sigma^2_y$.
     
-    \item[(3)] The AUC of normal distribution is 0 at $-\infty$ and becomes 1 at $\infty$. Whereas, the AUC of uniform distribution U(a,b) becomes greater than zero at a and becomes ! at b. Therefore the normal distribution will always have more area initially and the uniform distribution will always reach area=1 before. So, neither uniform distribution stochastically dominates uniform distribution nor vice versa.
+    \item[(3)] The AUC of normal distribution is 0 at $-\infty$ and becomes 1 at $\infty$. Whereas, the AUC of uniform distribution U(a,b) becomes greater than zero at a and becomes 1 at b. Therefore the normal distribution will always have more area initially and the uniform distribution will always reach area=1 before. So, neither uniform distribution stochastically dominates uniform distribution nor vice versa.
 \end{itemize}
 
 \section*{Question 2}
@@ -46,10 +46,27 @@ Since initially we don't know the machine, therefore all the machines are equall
     \item SLOT(Y) $\rightarrow$ U(Y) = $\frac{5}{100}\times40+\frac{25}{100}\times4+\frac{30}{100}\times2+\frac{40}{100}\times0 = 2+1+0.6+0 = 3.6$
     \item SLOT(Z) $\rightarrow$ U(Z) = $\frac{25}{100}\times10+\frac{25}{100}\times5+\frac{25}{100}\times2+\frac{25}{100}\times0 = 2.5+1.25+0.5+0 = 4.25$
 \end{itemize}
-$\implies U = \frac{1}{3}\times3.9+\frac{1}{3}\times3.6+\frac{1}{3}\times4.25$\\
-Now, if we know the slot machines, then we will choose to play on slot machine Z since it has the highest expected utility.\\
-Difference = $4.25-(\frac{1}{3}\times3.9+\frac{1}{3}\times3.6+\frac{1}{3}\times4.25) = \frac{2}{3}\times4.25 - \frac{1}{3}\times3.9+\frac{1}{3}\times3.6 = \frac{8.5-3.9-3.6}{3} = \frac{1}{3} = 0.333$\\
-Therefore, we should be willing to pay 0.333\$ to get the identification done.
+$\implies U(X or Y or Z) = \frac{1}{3}\times3.9+\frac{1}{3}\times3.6+\frac{1}{3}\times4.25 = \frac{11.75}{3}$\\
+
+Now, identifying one of the slot machines will give rise to three cases:
+\begin{itemize}
+    \item[1.] SLOT(X) is identified.\\
+    $\implies U(Y or Z) = \frac{3.6 + 4.25}{2} = \frac{7.85}{2} = 3.925$\\
+    Since $U(Y or Z)>U(X)$, the best action would be to play on the remaining two machines.
+    \item[2.] SLOT(Y) is identified.\\
+    $\implies U(X or Z) = \frac{3.9 + 4.25}{2} = \frac{8.15}{2} = 4.075$\\
+    Since $U(X or Z)>U(Y)$, the best action would be to play on the remaining two machines.
+    \item[2.] SLOT(Z) is identified.\\
+    $\implies U(X or Y) = \frac{3.9 + 3.6}{2} = \frac{7.5}{2} = 3.75$\\
+    Since $U(Z)>U(XorY)$, the best action would be to play on the identified Z machine.
+\end{itemize}
+
+Each of the aboe cases have equal probability of happening. Therefore the utility of getting one of the slot machine identified is,\\
+$\implies U = \frac{1}{3}\times3.925+\frac{1}{3}\times4.075+\frac{1}{3}\times4.25 = \frac{12.25}{3}$\\
+
+Difference in Utility = $U-U(X or Y or Z) = \frac{12.25}{3}-\frac{11.75}{3} = \frac{0.5}{3} = 0.166667$
+
+Therefore, we should be willing to pay 0.166667\$ to get the identification done.
 
 \section*{Question 3}
 \begin{equation*}
@@ -73,24 +90,51 @@ Therefore, we should be willing to pay 0.333\$ to get the identification done.
                                     \hline
                                     \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
                                     \hline
-                                    \cellcolor{black}coloured & 0 & -3\\
+                                    \cellcolor{black}coloured & 4 & 8\\
                                     \hline
-                                    -50 & -1 & -10\\
+                                    -50 & 7 & 4\\
                                     \hline
-                                    \cellcolor{black}coloured & -3 & -2\\
+                                    \cellcolor{black}coloured & 9 & 5\\
                                     \hline
                                     \end{tabular}\quad 
                     Final State =   \begin{tabular}{ |c|c|c| } 
                                     \hline
                                     \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
                                     \hline
-                                    \cellcolor{black}coloured & 0 & -3\\
+                                    \cellcolor{black}coloured & 33.87 & 17.3\\
                                     \hline
-                                    -50 & -1 & -10\\
+                                    -50 & 11.43 & -0.38\\
                                     \hline
-                                    \cellcolor{black}coloured & -3 & -2\\
+                                    \cellcolor{black}coloured & 2.70 & -1.18\\
                                     \hline
                                     \end{tabular}
+                \end{equation*}
+                \begin{equation*}
+                    Initial Policy = \begin{tabular}{ |c|c|c| } 
+                                    \hline
+                                    \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\uparrow$\\
+                                    \hline
+                                    -50 & $\rightarrow$ & $\leftarrow$\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\rightarrow$ & $\rightarrow$\\
+                                    \hline
+                                    \end{tabular}\quad 
+                    Final Policy =   \begin{tabular}{ |c|c|c| } 
+                                    \hline
+                                    \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\leftarrow$\\
+                                    \hline
+                                    -50 & $\uparrow$ & $\uparrow$\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\leftarrow$\\
+                                    \hline
+                                    \end{tabular}
+                \end{equation*}
+                \begin{equation*}
+                    Num\_Iterations = 4
                 \end{equation*}
     \item[(2)] \begin{equation*}
                     Initial State = \begin{tabular}{ |c|c|c| } 
@@ -108,15 +152,48 @@ Therefore, we should be willing to pay 0.333\$ to get the identification done.
                                     \hline
                                     \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
                                     \hline
-                                    \cellcolor{black}coloured & 0 & -3\\
+                                    \cellcolor{black}coloured & 33.68 & 16.72\\
                                     \hline
-                                    -50 & -1 & -10\\
+                                    -50 & 11.04 & -1.38\\
                                     \hline
-                                    \cellcolor{black}coloured & -3 & -2\\
+                                    \cellcolor{black}coloured & 1.47 & -2.97\\
                                     \hline
                                     \end{tabular}
                 \end{equation*}
-    \item[(3)]
+                \begin{equation*}
+                    Initial Policy = \begin{tabular}{ |c|c|c| } 
+                                    \hline
+                                    \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\uparrow$\\
+                                    \hline
+                                    -50 & $\rightarrow$ & $\leftarrow$\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\uparrow$\\
+                                    \hline
+                                    \end{tabular}\quad 
+                    Final Policy =   \begin{tabular}{ |c|c|c| } 
+                                    \hline
+                                    \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\leftarrow$\\
+                                    \hline
+                                    -50 & $\uparrow$ & $\uparrow$\\
+                                    \hline
+                                    \cellcolor{black}coloured & $\uparrow$ & $\leftarrow$\\
+                                    \hline
+                                    \end{tabular}
+                \end{equation*}
+                \begin{equation*}
+                    Num\_Iterations = 4
+                \end{equation*}
+    \item[(3)] From (1) and (2) we have two sets of utilities. When we use Bellman's equations, then for every update we have
+    \begin{equation}
+        \left\|U_0-U_0'\right\|\geq\gamma\left\|U_1-U_1'\right\|
+    \end{equation}
+    In this question, let $\left\|U_0-U_0'\right\| = \sum_{cell}(U_0[cell]-U_0'[cell])$.\\
+    Thus the difference in utility at every iteration is [37, 30.04, 17.51, 10.21, 5.20].\\
+    Figure 2 shows the plot of $\left\|U_0-U_0'\right\|\ and \ \gamma\left\|U_1-U_1'\right\|$
 \end{itemize}
 
 \section*{Question 4}
@@ -140,7 +217,7 @@ Therefore, we should be willing to pay 0.333\$ to get the identification done.
                     \hline
                     -50 & $\uparrow$ & $\uparrow$\\
                     \hline
-                    \cellcolor{black}coloured & $\uparrow$ & $\uparrow$\\
+                    \cellcolor{black}coloured & $\uparrow$ & $\leftarrow$\\
                     \hline
                     \end{tabular}
 \end{equation*}
@@ -149,13 +226,13 @@ Therefore, we should be willing to pay 0.333\$ to get the identification done.
                     \hline
                     \cellcolor{black}coloured & 50 & \cellcolor{black}coloured\\
                     \hline
-                    \cellcolor{black}coloured & 0 & -3\\
+                    \cellcolor{black}coloured & 34.38 & 18.78\\
                     \hline
-                    -50 & -1 & -10\\
+                    -50 & 12.53 & 2.29\\
                     \hline
-                    \cellcolor{black}coloured & -3 & -2\\
+                    \cellcolor{black}coloured & 4.70 & 1.03\\
                     \hline
-                    \end{tabular}
+                    \end{tabular}\quad Num\_Iterations = 3
 \end{equation*}
 
 \section*{Question 5}
