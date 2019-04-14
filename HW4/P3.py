@@ -103,7 +103,6 @@ while count != 0:
     iter += 1
     print(iter, count)
 #%%
-    
 state = [[None, 50, None],
          [None, 0, 0],
          [-50, 0, 0],
