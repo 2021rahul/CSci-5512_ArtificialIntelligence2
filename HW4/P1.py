@@ -15,12 +15,12 @@ mu = 0
 variance = 1
 sigma = math.sqrt(variance)
 x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
-plt.plot(x, stats.norm.pdf(x, mu, sigma))
+plt.plot(x, stats.norm.pdf(x, mu, sigma), "r", label="Job A")
 
 mu = 0.5
 variance = 0.5
 sigma = math.sqrt(variance)
 x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
-plt.plot(x, stats.norm.pdf(x, mu, sigma))
+plt.plot(x, stats.norm.pdf(x, mu, sigma), "b", label="Job B")
 
-plt.show()
+plt.savefig("P1.png")
