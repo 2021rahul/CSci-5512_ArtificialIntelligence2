@@ -34,15 +34,31 @@
         \caption{Distribution of Job A and Job B}
     \end{figure}
     
-    \item[(2)] For Job Y to stochastically dominate Job X, $\mu_x<\mu_y$ and $\sigma^2_x<\sigma^2_y$.
+    \item[(2)] For Job Y to stochastically dominate Job X,
+    \begin{equation*}
+        \int_{-\infty}^{z} \frac{1}{\sqrt{2\pi\sigma_x^2}}e^{-\frac{(t-\mu_x)^2}{2\sigma_x^2}}dt \geq \int_{-\infty}^{z} \frac{1}{\sqrt{2\pi\sigma_y^2}}e^{-\frac{(t-\mu_y)^2}{2\sigma_y^2}}dt
+    \end{equation*}
     
+    \begin{equation*}
+        Let\ a = \frac{t-\mu_x}{\sqrt{2}\sigma_x}\ and\ b = \frac{t-\mu_y}{\sqrt{2}\sigma_y}
+    \end{equation*}
+    \begin{equation*}
+        \int_{-\infty}^{\frac{z-\mu_x}{\sqrt{2}\sigma_x}} \frac{\sqrt{2}\sigma_x}{\sqrt{2\pi\sigma_x^2}}e^{-a^2}da \geq \int_{-\infty}^{\frac{z-\mu_y}{\sqrt{2}\sigma_y}} \frac{\sqrt{2}\sigma_y}{\sqrt{2\pi\sigma_y^2}}e^{-b^2}db
+    \end{equation*}
+    \begin{equation*}
+        \int_{-\infty}^{\frac{z-\mu_x}{\sqrt{2}\sigma_x}} \frac{1}{\sqrt{\pi}}e^{-a^2}da \geq \int_{-\infty}^{\frac{z-\mu_y}{\sqrt{2}\sigma_y}} \frac{1}{\sqrt{\pi}}e^{-b^2}db
+    \end{equation*}
+    \begin{equation*}
+        \implies \frac{z-\mu_x}{\sqrt{2}\sigma_x} \geq \frac{z-\mu_y}{\sqrt{2}\sigma_y}
+    \end{equation*}
+    If $\sigma_x=\sigma_y$ then, $\mu_y\geq\mu_x$
     \item[(3)] The AUC of normal distribution is 0 at $-\infty$ and becomes 1 at $\infty$. Whereas, the AUC of uniform distribution U(a,b) becomes greater than zero at a and becomes 1 at b. Therefore the normal distribution will always have more area initially and the uniform distribution will always reach area=1 before. So, neither uniform distribution stochastically dominates uniform distribution nor vice versa.
 \end{itemize}
 
 \newpage
 
 \section*{Question 2}
-Since initially we don't know the machine, therefore all the machines are equally likely.
+Since initially we don't know the machine, therefore all the machines are equally likely. Moreover we can skip the -4\$ since it is common in all equations.
 \begin{itemize}
     \item SLOT(X) $\rightarrow$ U(X) = $\frac{10}{100}\times20+\frac{30}{100}\times5+\frac{40}{100}\times1+\frac{20}{100}\times0 = 2+1.5+0.4+0 = 3.9$
     \item SLOT(Y) $\rightarrow$ U(Y) = $\frac{5}{100}\times40+\frac{25}{100}\times4+\frac{30}{100}\times2+\frac{40}{100}\times0 = 2+1+0.6+0 = 3.6$
@@ -480,6 +496,9 @@ b(s') = \begin{tabular}{ |c|c| }
             \hline
         \end{tabular}$
 \\
+\begin{equation*}
+    b'(s') = \alpha P(e|s')\sum P(s'|s,a)b(s)    
+\end{equation*}
 
 Suppose the chosen action is "LEFT". Then,\\
 $
@@ -511,19 +530,19 @@ The sequence of actions for this problem can be
                 \end{tabular} \xrightarrow{\text{LEFT}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.114 & 0\\
+                    0.237 & 0\\
                     \hline
-                    0.342 & 0.0024\\
+                    0.7125 & 0.0499\\
                     \hline
                 \end{tabular} \xrightarrow{\text{DOWN}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.00513 & 0\\
+                    0.0144 & 0\\
                     \hline
-                    0.33669 & 0.01434\\
+                    0.94533 & 0.0403\\
                     \hline
                 \end{tabular}\implies$
-    REWARD = 0.30288
+    REWARD = 0.8504
     \item[2] LEFT, LEFT
     $\implies   \begin{tabular}{ |c|c| } 
                     \hline
@@ -534,19 +553,19 @@ The sequence of actions for this problem can be
                 \end{tabular} \xrightarrow{\text{LEFT}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.114 & 0\\
+                    0.237 & 0\\
                     \hline
-                    0.342 & 0.0024\\
+                    0.7125 & 0.0499\\
                     \hline
                 \end{tabular} \xrightarrow{\text{LEFT}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.04446 & 0\\
+                    0.1318 & 0\\
                     \hline
-                    0.29214 & 0.00072\\
+                    0.866 & 0.0021\\
                     \hline
                 \end{tabular}\implies$
-    REWARD = 0.24624
+    REWARD = 0.7299
     \item[3] DOWN, LEFT
     $\implies   \begin{tabular}{ |c|c| } 
                     \hline
@@ -557,19 +576,19 @@ The sequence of actions for this problem can be
                 \end{tabular} \xrightarrow{\text{DOWN}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.0225 & 0\\
+                    0.065 & 0\\
                     \hline
-                    0.1935 & 0.127\\
+                    0.564 & 0.370\\
                     \hline
                 \end{tabular} \xrightarrow{\text{LEFT}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.014445 & 0\\
+                    0.0579 & 0\\
                     \hline
-                    0.231075 & 0.00381\\
+                    0.926 & 0.0152\\
                     \hline
                 \end{tabular}\implies$
-    REWARD = 0.20901
+    REWARD = 0.838
     \item[4] DOWN, DOWN
     $\implies   \begin{tabular}{ |c|c| } 
                     \hline
@@ -580,19 +599,19 @@ The sequence of actions for this problem can be
                 \end{tabular} \xrightarrow{\text{DOWN}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.0225 & 0\\
+                    0.0656 & 0\\
                     \hline
-                    0.1935 & 0.127\\
+                    0.564 & 0.37\\
                     \hline
                 \end{tabular} \xrightarrow{\text{DOWN}}
                 \begin{tabular}{ |c|c| } 
                     \hline
-                    0.00101 & 0\\
+                    0.0048 & 0\\
                     \hline
-                    0.17935 & 0.0274\\
+                    0.86 & 0.13\\
                     \hline
                 \end{tabular}\implies$
-    REWARD = 0.123545
+    REWARD = 0.5946
 \end{itemize}
 Thus, \{LEFT, DOWN\} is the best sequence of actions that can be taken.
 \end{document}
