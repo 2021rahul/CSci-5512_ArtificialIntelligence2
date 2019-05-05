@@ -166,6 +166,13 @@ The combination of A ,C \& D gives the highest accuracy.
     \end{equation*}
 \end{itemize}
 Therefore the split at nodes (1T,1F) \& (2T,1F) can be removed.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{HW5/PRUNED_TREE.png}
+    \caption{Pruned Tree}
+    \label{fig:Pruned Tree}
+\end{figure}
 \newpage
 
 \section*{Question 4}
@@ -182,20 +189,56 @@ Therefore the split at nodes (1T,1F) \& (2T,1F) can be removed.
 \begin{align*}
     out =& 1\\
     Error =& \frac{(out - N5)^2}{2}\\
-    \frac{\partial Error}{\partial w_9} =& \frac{\partial Error}{\partial N5}\frac{\partial N5}{\partial (w_8\times N3 + w_9\times N4)}\frac{\partial (w_8\times N3 + w_9\times N_4)}{\partial w_9} = -2(out-N5)(N5(1-N5))(N4)\\=& -(1-0.55)(0.55(1-0.55))(0.56) = -0.06237\\
-    w_9 =& w_9 + \alpha \frac{\partial Error}{\partial w_9} = 0.9 - 0.5\times0.06237 = 0.868815
+    \frac{\partial Error}{\partial w_9} =& \frac{\partial Error}{\partial N5}\frac{\partial N5}{\partial (w_8\times N3 + w_9\times N4)}\frac{\partial (w_8\times N3 + w_9\times N_4)}{\partial w_9} = -(out-N5)(N5(1-N5))(N4)\\=& -(1-0.55)(0.55(1-0.55))(0.56) = -0.06237\\
+    w_9 =& w_9 - \alpha \frac{\partial Error}{\partial w_9} = 0.9 + 0.5\times0.06237 = 0.931185
 \end{align*}
 
 \section*{Question 5}
 \begin{align*}
     out =& 1\\
-    Error =& (out - N5)^2\\
-    \frac{\partial Error}{\partial w_1} =& \frac{\partial Error}{\partial N5}\frac{\partial N5}{\partial (w_8\times N3 + w_9\times N4)}\frac{\partial (w_8\times N3 + w_9\times N4)}{\partial N3}\frac{\partial N3}{\partial (w_5\times N1)}\frac{\partial (w_5\times N1)}{\partial N1}\frac{\partial N1}{\partial (w_1\times in_1 + w_2\times in_2)}\\
-    &\frac{\partial (w_1\times in_1 + w_2\times in_2)}{\partial w_1}\\
-    =& -2(out - N5)(N5(1-N5))(w_8)(N3(1-N3))(w5)(N1(1-N1))(in1)\\
-    =& -2(1-0.55)(0.55(1-0.55))(-0.5)(0.65(1-0.65))(1)(0.61(1-0.61))(0.6)\\
-    =& 0.0036\\
-    w_1 =& w_1 + \alpha \frac{\partial Error}{\partial w_1} = 0.5 + 0.5\times0.0036 = 0.5018
+    Error =& \frac{(out - N5)^2}{2}\\
+    \frac{\partial Error}{\partial w_1} =& \frac{\partial Error}{\partial N5}\frac{\partial N5}{\partial (w_8\times N3 + w_9\times N4)}
+    \begin{bmatrix} 
+        \frac{\partial (w_8\times N3 + w_9\times N4)}{\partial N3} & \frac{\partial (w_8\times N3 + w_9\times N4)}{\partial N4} 
+    \end{bmatrix}
+    \begin{bmatrix} 
+        \frac{\partial N3}{\partial (w_5\times N1)} & \frac{\partial N4}{\partial (w_5\times N1)}\\
+        \frac{\partial N3}{\partial (w_6\times N1 + w_7\times N2)} & \frac{\partial N4}{\partial (w_6\times N1 + w_7\times N2)}
+    \end{bmatrix}\\
+    &\begin{bmatrix} 
+        \frac{\partial (w_5\times N1)}{\partial N1}\\
+        \frac{\partial (w_6\times N1 + w_7\times N2)}{\partial N1} 
+    \end{bmatrix}
+    \frac{\partial N1}{\partial (w_1\times in_1 + w_2\times in_2)}\frac{\partial (w_1\times in_1 + w_2\times in_2)}{\partial w_1}\\
+    =& -(out - N5)(N5(1-N5))
+    \begin{bmatrix} 
+        w_8 & w_9
+    \end{bmatrix}
+    \begin{bmatrix} 
+        N3(1-N3) & 0\\
+        0 & N4(1-N4)
+    \end{bmatrix}
+    \begin{bmatrix} 
+        w_5\\
+        w_6
+    \end{bmatrix}
+    (N1(1-N1))(in_1)\\
+    =& -(1-0.55)(0.55(1-0.55))
+    \begin{bmatrix} 
+        -0.5 & 0.9
+    \end{bmatrix}
+    \begin{bmatrix} 
+        0.65(1-0.65) & 0\\
+        0 & 0.56(1-0.56)
+    \end{bmatrix}
+    \begin{bmatrix} 
+        1\\
+        0.7
+    \end{bmatrix}
+    (0.61(1-0.61))(0.6)\\
+    =& -(1-0.55)(0.55(1-0.55))(-0.5\times0.65(1-0.65)\times(1) + 0.9\times0.56(1-0.56)\times0.7)(0.61(1-0.61))(0.6)\\
+    =& -0.00066\\
+    w_1 =& w_1 - \alpha \frac{\partial Error}{\partial w_1} = 0.5 + 0.5\times0.00066 = 0.5033
 \end{align*}
 \newpage
 
@@ -211,10 +254,10 @@ Therefore the split at nodes (1T,1F) \& (2T,1F) can be removed.
 \end{align*}
 $\alpha = 0.01$
 \begin{align*}
-    & a = a + \alpha* \frac{\partial f}{\partial a} = a + 0.01\times(4ac^4 - b)\\
-    & b = b + \alpha* \frac{\partial f}{\partial b} = b + 0.01\times(4bd^2 - a)\\
-    & c = c + \alpha* \frac{\partial f}{\partial c} = c + 0.01\times(8a^2c^3 - 9c^2d)\\
-    & d = d + \alpha* \frac{\partial f}{\partial d} = d + 0.01\times(e^{sin(d)+d}(cos(d) + 1) + 4b^2d - 3c^3)\\
+    & a = a - \alpha* \frac{\partial f}{\partial a} = a - 0.01\times(4ac^4 - b)\\
+    & b = b - \alpha* \frac{\partial f}{\partial b} = b - 0.01\times(4bd^2 - a)\\
+    & c = c - \alpha* \frac{\partial f}{\partial c} = c - 0.01\times(8a^2c^3 - 9c^2d)\\
+    & d = d - \alpha* \frac{\partial f}{\partial d} = d - 0.01\times(e^{sin(d)+d}(cos(d) + 1) + 4b^2d - 3c^3)\\
 \end{align*}
 With number of iterations equal to 100000, the final values that we get is a=0, b=0, c=0 and d=3.141. The values of a with respect to the iteration are shown in figures below.
 \newpage
