@@ -259,6 +259,28 @@ $\alpha = 0.01$
     & c = c - \alpha* \frac{\partial f}{\partial c} = c - 0.01\times(8a^2c^3 - 9c^2d)\\
     & d = d - \alpha* \frac{\partial f}{\partial d} = d - 0.01\times(e^{sin(d)+d}(cos(d) + 1) + 4b^2d - 3c^3)\\
 \end{align*}
-With number of iterations equal to 100000, the final values that we get is a=0, b=0, c=0 and d=3.141. The values of a with respect to the iteration are shown in figures below.
-\newpage
+With number of iterations equal to 100000, the final values that we get is a=0, b=0, c=0 and d=-3.0965. The values of a, b, c, d and f(a,b,c,d) with respect to the iteration are shown in figures below.
+\begin{figure}[H]
+    \minipage{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{HW5/a.png}
+        \subcaption{a vs iteration}
+    \endminipage\hfill
+    \minipage{0.24\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{HW5/b.png}
+        \subcaption{b vs iteration}
+    \endminipage\hfill
+    \minipage{0.24\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{HW5/c.png}
+        \subcaption{c vs iteration}
+    \endminipage\hfill
+    \minipage{0.24\textwidth}
+        \centering
+        \includegraphics[width=1.1\textwidth]{HW5/d.png}
+        \subcaption{d vs iteration}
+    \endminipage\hfill
+    \caption{Single-layer Linear Perceptron}
+\end{figure}
 \end{document}
