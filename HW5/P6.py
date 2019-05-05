@@ -12,7 +12,7 @@ def f(a, b, c, d):
     return 2*a*pow(c,4) - a*b + math.exp(math.sin(d)+d) + 2*pow(b,2)*pow(d,2) - 3*pow(c,3)*d
 #%%
 
-alpha = 0.001
+alpha = 0.01
 a = 0
 b = 0
 c = 0
