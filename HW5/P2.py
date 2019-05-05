@@ -7,44 +7,22 @@ Created on Sun Apr 28 17:27:18 2019
 """
 
 import numpy as np
+import pandas as pd
 
-raw_data = [
-0,1,0,1,1,1,
-1,0,1,1,1,1,
-0,0,0,0,1,0,
-1,1,0,0,1,1,
-0,1,0,0,0,0,
-0,0,1,1,0,0,
-1,1,1,1,1,1,
-1,1,1,0,0,0,
-1,0,0,0,1,1,
-1,1,0,0,1,1,
-0,0,0,1,0,1,
-0,1,0,1,0,1,
-0,1,1,1,1,0,
-0,0,1,1,0,0,
-0,1,0,0,0,0,
-0,0,0,0,0,0,
-0,1,0,1,1,1,
-1,1,1,1,0,1,
-1,0,1,0,0,0,
-1,1,0,1,1,1]
+df=pd.read_csv('p2Tree.csv', sep=',',header=None)
+array = df.values[1:, 1:]
+array = array.astype(int)
 
-data = np.zeros((20, 6))
-X = data[:, :-1]
-Y = data[:, -1]
+X = array[:,:-1]
+Y = array[:,-1]
 #%%
-i = 0
-while i < 20:
-    data[i, :] = raw_data[i*6:(i*6)+6]
-    i = i+1
-#%%
-attribute = 4
-mat = np.zeros((2, 2))
-mat[0, 0] = len(data[np.logical_and(data[:, attribute] == 0, data[:, 5] == 0), :])
-mat[0, 1] = len(data[np.logical_and(data[:, attribute] == 0, data[:, 5] == 1), :])
-mat[1, 0] = len(data[np.logical_and(data[:, attribute] == 1, data[:, 5] == 0), :])
-mat[1, 1] = len(data[np.logical_and(data[:, attribute] == 1, data[:, 5] == 1), :])
+for attribute in range(5):
+    mat = np.zeros((2, 2))
+    mat[0, 0] = len(X[np.logical_and(X[:, attribute] == 0, Y == 0), :])
+    mat[0, 1] = len(X[np.logical_and(X[:, attribute] == 0, Y == 1), :])
+    mat[1, 0] = len(X[np.logical_and(X[:, attribute] == 1, Y == 0), :])
+    mat[1, 1] = len(X[np.logical_and(X[:, attribute] == 1, Y == 1), :])
+    print(mat)
 #%%
 decisions = np.zeros(5)
 decisions[0] = 1
@@ -69,6 +47,7 @@ for comb in combination:
     pred = np.zeros(len(actualpred))
     pred[actualpred>1] = 1
     accuracy.append(np.sum(pred == Y))
+    print(comb, accuracy[-1])
 #%%
 combination = combination[np.argmax(accuracy)]
 #%%
@@ -77,4 +56,5 @@ ent1 = (8/20)*(-((5/8)*np.log2(5/8) + (3/8)*np.log2(3/8))) + (12/20)*(-((4/12)*n
 ent2 = (8/20)*(-((5/8)*np.log2(5/8) + (3/8)*np.log2(3/8))) + (12/20)*(-((4/12)*np.log2(4/12) + (8/12)*np.log2(8/12)))
 ent3 = (9/20)*(-((6/9)*np.log2(6/9) + (3/9)*np.log2(3/9))) + (11/20)*(-((3/11)*np.log2(3/11) + (8/11)*np.log2(8/11)))
 ent4 = (10/20)*(-((7/10)*np.log2(7/10) + (3/10)*np.log2(3/10))) + (10/20)*(-((2/10)*np.log2(2/10) + (8/10)*np.log2(8/10)))
+#%%
 

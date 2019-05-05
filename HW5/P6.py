@@ -13,7 +13,13 @@ a = 0
 b = 0
 c = 0
 d = 0
+a_viz = []
+b_viz = []
+c_viz = []
 d_viz = []
+a_viz.append(a)
+b_viz.append(b)
+c_viz.append(c)
 d_viz.append(d)
 for i in range(1,100000):
     anew = a + alpha*((4*a*pow(c,4)) - b)
@@ -26,8 +32,21 @@ for i in range(1,100000):
     c = cnew
     d = dnew
     
+    a_viz.append(a)
+    b_viz.append(b)
+    c_viz.append(c)
     d_viz.append(d)
 #%%
 import matplotlib.pyplot as plt
+plt.plot(a_viz)
+plt.savefig("a.png")
+plt.show()
+plt.plot(b_viz)
+plt.savefig("b.png")
+plt.show()
+plt.plot(c_viz)
+plt.savefig("c.png")
+plt.show()
 plt.plot(d_viz)
-    
+plt.savefig("d.png")
+plt.show()
